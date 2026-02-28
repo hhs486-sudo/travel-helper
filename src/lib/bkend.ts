@@ -26,7 +26,7 @@ async function bkendFetch(path: string, options: RequestInit = {}) {
 
 export const bkend = {
   auth: {
-    signup: (body: { email: string; password: string }) =>
+    signup: (body: { email: string; password: string; name: string }) =>
       bkendFetch('/auth/email/signup', {
         method: 'POST',
         body: JSON.stringify({ method: 'password', ...body }),

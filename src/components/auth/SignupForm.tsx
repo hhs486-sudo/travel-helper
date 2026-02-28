@@ -11,6 +11,7 @@ export default function SignupForm() {
   const router = useRouter();
   const { login } = useAuthStore();
 
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -34,7 +35,7 @@ export default function SignupForm() {
 
     setIsLoading(true);
     try {
-      await bkend.auth.signup({ email, password });
+      await bkend.auth.signup({ name, email, password });
       await login(email, password);
       router.push('/');
     } catch (err) {
@@ -68,6 +69,17 @@ export default function SignupForm() {
           )}
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div>
+              <label className="mb-1.5 block text-sm font-medium text-slate-700">이름</label>
+              <input
+                type="text"
+                required
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="홍길동"
+                className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-400"
+              />
+            </div>
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">이메일</label>
               <input
