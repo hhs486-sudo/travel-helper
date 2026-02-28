@@ -1,0 +1,23 @@
+{
+  "version": "2.0",
+  "lastUpdated": "2026-02-27T00:00:00.000Z",
+  "activeFeatures": ["places-recommendations"],
+  "primaryFeature": "places-recommendations",
+  "features": {
+    "places-recommendations": {
+      "phase": "plan",
+      "status": "in_progress"
+    }
+  },
+  "pipeline": {
+    "currentPhase": 1,
+    "level": "Dynamic",
+    "phaseHistory": []
+  },
+  "session": {
+    "startedAt": "2026-02-27T00:00:00.000Z",
+    "onboardingCompleted": true,
+    "lastActivity": "2026-02-27T00:00:00.000Z"
+  },
+  "history": []
+}

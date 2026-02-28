@@ -1,0 +1,14 @@
+{
+  "sessionCount": 1,
+  "lastSession": {
+    "startedAt": "2026-02-27T00:00:00.000Z",
+    "platform": "claude",
+    "level": "Dynamic"
+  },
+  "project": {
+    "name": "travel-helper",
+    "level": "Dynamic",
+    "features": ["places-recommendations"],
+    "stack": ["Next.js", "TypeScript", "Tailwind CSS", "bkend.ai", "TanStack Query", "Zustand"]
+  }
+}
