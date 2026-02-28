@@ -26,6 +26,12 @@ export default function SignupForm() {
       return;
     }
 
+    const pwPattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])/;
+    if (password.length < 8 || !pwPattern.test(password)) {
+      setError('비밀번호는 8자 이상, 대/소문자·숫자·특수문자(!@#$%^&*)를 포함해야 합니다.');
+      return;
+    }
+
     setIsLoading(true);
     try {
       await bkend.auth.signup({ email, password });
@@ -80,7 +86,7 @@ export default function SignupForm() {
                 required
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="8자 이상 입력하세요"
+                placeholder="대/소문자+숫자+특수문자 포함 8자 이상"
                 className="w-full rounded-xl border border-slate-200 px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 focus:border-transparent focus:outline-none focus:ring-2 focus:ring-amber-400"
               />
             </div>
