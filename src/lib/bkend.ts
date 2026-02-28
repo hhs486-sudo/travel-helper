@@ -20,8 +20,11 @@ async function bkendFetch(path: string, options: RequestInit = {}) {
     },
   });
 
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
+  const text = await res.text();
+  if (!res.ok) throw new Error(text);
+  const json = JSON.parse(text);
+  // bkend 응답이 { success: true, data: {...} } 구조면 data만 반환
+  return json?.data ?? json;
 }
 
 export const bkend = {
