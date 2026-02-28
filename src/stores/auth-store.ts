@@ -9,8 +9,6 @@ interface AuthState {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGoogle: () => void;
-  handleGoogleCallback: (code: string, state: string, redirectUri: string) => Promise<void>;
   logout: () => Promise<void>;
   fetchMe: () => Promise<void>;
 }
@@ -20,27 +18,6 @@ export const useAuthStore = create<AuthState>()(
     (set) => ({
       user: null,
       isLoading: false,
-
-      loginWithGoogle: () => {
-        bkend.auth.google.redirect();
-      },
-
-      handleGoogleCallback: async (code, state, redirectUri) => {
-        set({ isLoading: true });
-        try {
-          const { user, accessToken, refreshToken } = await bkend.auth.google.callback({
-            code,
-            state,
-            redirectUri,
-          });
-          localStorage.setItem('bkend_access_token', accessToken);
-          localStorage.setItem('bkend_refresh_token', refreshToken);
-          set({ user, isLoading: false });
-        } catch (err) {
-          set({ isLoading: false });
-          throw err;
-        }
-      },
 
       login: async (email, password) => {
         set({ isLoading: true });
