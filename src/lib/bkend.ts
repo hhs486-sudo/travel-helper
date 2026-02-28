@@ -26,7 +26,7 @@ async function bkendFetch(path: string, options: RequestInit = {}) {
   return res.json();
 }
 
-const GITHUB_CLIENT_ID = process.env.NEXT_PUBLIC_GITHUB_CLIENT_ID!;
+const GOOGLE_CLIENT_ID = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!;
 const OAUTH_CALLBACK_BASE =
   typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000';
 
@@ -41,22 +41,23 @@ export const bkend = {
       bkendFetch('/auth/refresh', { method: 'POST', body: JSON.stringify({ refreshToken }) }),
     signout: () => bkendFetch('/auth/signout', { method: 'POST' }),
 
-    github: {
-      // GitHub OAuth URL 생성 후 리다이렉트
+    google: {
+      // Google OAuth URL 생성 후 리다이렉트
       redirect: () => {
         const state = crypto.randomUUID();
         sessionStorage.setItem('oauth_state', state);
-        const redirectUri = `${OAUTH_CALLBACK_BASE}/auth/callback/github`;
-        const url = new URL('https://github.com/login/oauth/authorize');
-        url.searchParams.set('client_id', GITHUB_CLIENT_ID);
+        const redirectUri = `${OAUTH_CALLBACK_BASE}/auth/callback/google`;
+        const url = new URL('https://accounts.google.com/o/oauth2/v2/auth');
+        url.searchParams.set('client_id', GOOGLE_CLIENT_ID);
         url.searchParams.set('redirect_uri', redirectUri);
-        url.searchParams.set('scope', 'user:email user');
+        url.searchParams.set('response_type', 'code');
+        url.searchParams.set('scope', 'openid email profile');
         url.searchParams.set('state', state);
         window.location.href = url.toString();
       },
       // callback: code + state → bkend → JWT
       callback: (body: { code: string; state: string; redirectUri: string }) =>
-        bkendFetch('/auth/github/callback', { method: 'POST', body: JSON.stringify(body) }),
+        bkendFetch('/auth/google/callback', { method: 'POST', body: JSON.stringify(body) }),
     },
   },
   data: {

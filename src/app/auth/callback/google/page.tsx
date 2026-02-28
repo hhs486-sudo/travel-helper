@@ -4,10 +4,10 @@ import { useEffect, useRef } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useAuthStore } from '@/stores/auth-store';
 
-export default function GithubCallbackPage() {
+export default function GoogleCallbackPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const handleGithubCallback = useAuthStore((s) => s.handleGithubCallback);
+  const handleGoogleCallback = useAuthStore((s) => s.handleGoogleCallback);
   const called = useRef(false);
 
   useEffect(() => {
@@ -30,16 +30,16 @@ export default function GithubCallbackPage() {
 
     sessionStorage.removeItem('oauth_state');
 
-    const redirectUri = `${window.location.origin}/auth/callback/github`;
+    const redirectUri = `${window.location.origin}/auth/callback/google`;
 
-    handleGithubCallback(code, state, redirectUri)
+    handleGoogleCallback(code, state, redirectUri)
       .then(() => router.replace('/'))
       .catch(() => router.replace('/?error=oauth_failed'));
-  }, [searchParams, handleGithubCallback, router]);
+  }, [searchParams, handleGoogleCallback, router]);
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-zinc-50 dark:bg-black">
-      <p className="text-zinc-500 dark:text-zinc-400">GitHub 로그인 처리 중...</p>
+      <p className="text-zinc-500 dark:text-zinc-400">Google 로그인 처리 중...</p>
     </div>
   );
 }

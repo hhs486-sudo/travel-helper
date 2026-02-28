@@ -9,8 +9,8 @@ interface AuthState {
   user: User | null;
   isLoading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  loginWithGithub: () => void;
-  handleGithubCallback: (code: string, state: string, redirectUri: string) => Promise<void>;
+  loginWithGoogle: () => void;
+  handleGoogleCallback: (code: string, state: string, redirectUri: string) => Promise<void>;
   logout: () => Promise<void>;
   fetchMe: () => Promise<void>;
 }
@@ -21,14 +21,14 @@ export const useAuthStore = create<AuthState>()(
       user: null,
       isLoading: false,
 
-      loginWithGithub: () => {
-        bkend.auth.github.redirect();
+      loginWithGoogle: () => {
+        bkend.auth.google.redirect();
       },
 
-      handleGithubCallback: async (code, state, redirectUri) => {
+      handleGoogleCallback: async (code, state, redirectUri) => {
         set({ isLoading: true });
         try {
-          const { user, accessToken, refreshToken } = await bkend.auth.github.callback({
+          const { user, accessToken, refreshToken } = await bkend.auth.google.callback({
             code,
             state,
             redirectUri,
