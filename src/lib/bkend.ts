@@ -1,6 +1,5 @@
-const BKEND_DIRECT = process.env.NEXT_PUBLIC_BKEND_API_URL || 'https://api.bkend.ai/v1';
-const PROJECT_ID = process.env.NEXT_PUBLIC_BKEND_PROJECT_ID!;
-const ENVIRONMENT = process.env.NEXT_PUBLIC_BKEND_ENV || 'dev';
+const BKEND_DIRECT = 'https://api-client.bkend.ai/v1';
+const API_KEY = process.env.NEXT_PUBLIC_BKEND_API_KEY!;
 
 // 브라우저: CORS 우회를 위해 Next.js API 프록시 경유
 // 서버: 직접 호출
@@ -15,8 +14,7 @@ async function bkendFetch(path: string, options: RequestInit = {}) {
     ...options,
     headers: {
       'Content-Type': 'application/json',
-      'x-project-id': PROJECT_ID,
-      'x-environment': ENVIRONMENT,
+      'X-API-Key': API_KEY,
       ...(token && { Authorization: `Bearer ${token}` }),
       ...options.headers,
     },

@@ -344,24 +344,24 @@ export const DEFAULT_NOTIFICATION_SETTINGS: NotificationSettings = {
   },
 };
 
-/** WatchItem 생성 요청 DTO */
+/** WatchItem 생성 요청 DTO (bkend snake_case 컬럼명 일치) */
 export interface CreateWatchItemRequest {
   // --- Step 1: 여행지 선택 ---
   destination: WatchItem['destination'];
   origin: WatchItem['origin'];
 
   // --- Step 2: 여행 조건 입력 ---
-  travelCondition: WatchItem['travelCondition'];
+  travel_condition: WatchItem['travelCondition'];
 
   // --- Step 3: 상품 유형 및 세부 조건 ---
-  watchedProductTypes: ProductType[];
-  flightCondition?: FlightCondition;
-  hotelCondition?: HotelCondition;
-  airtelCondition?: AirtelCondition;
-  packageCondition?: PackageCondition;
+  watched_product_types: ProductType[];
+  flight_condition?: FlightCondition;
+  hotel_condition?: HotelCondition;
+  airtel_condition?: AirtelCondition;
+  package_condition?: PackageCondition;
 
-  // --- 알림 설정 (선택, 기본값 적용) ---
-  notificationSettings?: Partial<NotificationSettings>;
+  // --- 알림 설정 ---
+  notification_settings: NotificationSettings;
 }
 
 /** WatchItem 수정 요청 DTO (부분 업데이트 지원) */

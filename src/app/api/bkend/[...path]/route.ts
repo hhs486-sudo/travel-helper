@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 
-const BKEND_BASE = process.env.NEXT_PUBLIC_BKEND_API_URL || 'https://api.bkend.ai/v1';
+const BKEND_BASE = 'https://api-client.bkend.ai/v1';
 
 async function proxy(req: NextRequest, { params }: { params: Promise<{ path: string[] }> }) {
   const { path } = await params;
@@ -12,13 +12,11 @@ async function proxy(req: NextRequest, { params }: { params: Promise<{ path: str
 
   const headers = new Headers();
   // bkend 인증 헤더 전달
-  const projectId = req.headers.get('x-project-id');
-  const environment = req.headers.get('x-environment');
+  const apiKey = req.headers.get('x-api-key');
   const authorization = req.headers.get('authorization');
   const contentType = req.headers.get('content-type');
 
-  if (projectId) headers.set('x-project-id', projectId);
-  if (environment) headers.set('x-environment', environment);
+  if (apiKey) headers.set('X-API-Key', apiKey);
   if (authorization) headers.set('authorization', authorization);
   if (contentType) headers.set('content-type', contentType);
 

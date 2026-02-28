@@ -78,7 +78,7 @@ function buildCreateRequest(form: WatchItemFormData): CreateWatchItemRequest {
   const request: CreateWatchItemRequest = {
     destination: step1.destination,
     origin: step1.origin,
-    travelCondition: {
+    travel_condition: {
       wishMonths: step2.wishMonths,
       durationRange: step2.durationRange,
       flexibleDays: step2.flexibleDays,
@@ -92,22 +92,22 @@ function buildCreateRequest(form: WatchItemFormData): CreateWatchItemRequest {
         isFlexible: step2.isBudgetFlexible,
       },
     },
-    watchedProductTypes: step3.watchedProductTypes,
-    notificationSettings: DEFAULT_NOTIFICATION_SETTINGS,
+    watched_product_types: step3.watchedProductTypes,
+    notification_settings: DEFAULT_NOTIFICATION_SETTINGS,
   };
 
   // 선택된 상품 유형에 따라 세부 조건 추가
   if (step3.watchedProductTypes.includes('FLIGHT')) {
-    request.flightCondition = step3.flightCondition;
+    request.flight_condition = step3.flightCondition;
   }
   if (step3.watchedProductTypes.includes('HOTEL')) {
-    request.hotelCondition = step3.hotelCondition;
+    request.hotel_condition = step3.hotelCondition;
   }
   if (step3.watchedProductTypes.includes('AIRTEL')) {
-    request.airtelCondition = step3.airtelCondition;
+    request.airtel_condition = step3.airtelCondition;
   }
   if (step3.watchedProductTypes.includes('PACKAGE')) {
-    request.packageCondition = step3.packageCondition;
+    request.package_condition = step3.packageCondition;
   }
 
   return request;
