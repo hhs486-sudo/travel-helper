@@ -446,3 +446,24 @@ export interface WatchItemFormData {
   step2: Step2FormData;
   step3: Step3FormData;
 }
+
+// =============================================================================
+// TravelProduct (스크래퍼 수집 상품)
+// =============================================================================
+
+export interface TravelProduct {
+  id: string;
+  product_type: ProductType;
+  destination: { name: string; countryCode: string; cityCode?: string };
+  origin: { cityCode: string };
+  price_per_person: number;
+  total_price: number;
+  duration_nights: number;
+  departure_date_from: string;
+  departure_date_to: string;
+  pax: number;
+  provider: string;
+  deep_link_url: string;
+  is_active: boolean;
+  scraped_at: string;
+}

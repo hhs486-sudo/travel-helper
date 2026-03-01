@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import { useDeleteWatchItem } from '@/hooks/useWatchItems';
 
 const PRODUCT_LABELS: Record<string, string> = {
@@ -44,10 +45,12 @@ export default function WatchItemCard({ item }: WatchItemCardProps) {
     <div className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm">
       {/* 상단: 목적지 + 삭제 */}
       <div className="flex items-start justify-between gap-2">
-        <div>
+        <Link href={`/watch/${item.id}`} className="flex-1 min-w-0">
           <p className="text-xs font-medium text-slate-400">{destination.countryCode}</p>
-          <h3 className="text-lg font-extrabold text-slate-800">{destination.name}</h3>
-        </div>
+          <h3 className="text-lg font-extrabold text-slate-800 hover:text-amber-600 transition-colors">
+            {destination.name}
+          </h3>
+        </Link>
         <button
           onClick={handleDelete}
           disabled={deleteMutation.isPending}
@@ -89,10 +92,18 @@ export default function WatchItemCard({ item }: WatchItemCardProps) {
         </div>
       </div>
 
-      {/* 등록일 */}
-      <p className="mt-3 text-xs text-slate-400">
-        {new Date(createdAt).toLocaleDateString('ko-KR')} 등록
-      </p>
+      {/* 하단: 등록일 + 특가 보기 */}
+      <div className="mt-3 flex items-center justify-between">
+        <p className="text-xs text-slate-400">
+          {new Date(createdAt).toLocaleDateString('ko-KR')} 등록
+        </p>
+        <Link
+          href={`/watch/${item.id}`}
+          className="text-xs font-semibold text-amber-500 hover:text-amber-600 transition-colors"
+        >
+          특가 보기 →
+        </Link>
+      </div>
     </div>
   );
 }
